@@ -2,7 +2,7 @@
 # simple script to update all images
 
 echo "Required root password to bootstrap archlinux base image :"
-sudo arch/build-and-import-base-image-archlinux.sh
+#sudo arch/build-and-import-base-image-archlinux.sh
 
 IMGS="
 arch-nginx
