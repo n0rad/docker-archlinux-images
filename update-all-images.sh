@@ -7,6 +7,7 @@ sudo arch/build-and-import-base-image-archlinux.sh
 IMGS="
 arch-nginx
 arch-nginx-php
+arch-nginx-php-mysql
 "
 
 for img in $IMGS ; do

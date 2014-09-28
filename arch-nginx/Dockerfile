@@ -1,7 +1,7 @@
-FROM n0rad/archlinux
+FROM n0rad/arch
 MAINTAINER n0rad <alemaire@norad.fr>
 
-RUN pacman -Syu --noconfirm nginx
+RUN pacman -S --noconfirm nginx
 RUN pacman -Scc --noconfirm
 RUN mkdir -p /etc/nginx/conf.d
 RUN mkdir -p /etc/nginx/sites-available

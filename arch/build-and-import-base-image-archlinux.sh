@@ -1,5 +1,11 @@
 #!/bin/bash -x
 (( EUID != 0 )) && echo 'This script must be run as root.' && exit 1
+hash pacstrap &>/dev/null || {
+	echo "Could not find pacstrap. Run pacman -S arch-install-scripts"
+	exit 1
+}
+
+
 trap 'rm -rf $buildfolder; exit' ERR
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -66,9 +72,6 @@ arch-chroot "$buildfolder" \
 	/bin/sh -c 'pacman-key --init; \
 		pacman-key --populate archlinux'
 
-fail
-
-
-tar --numeric-owner -C "$buildfolder" -c . | docker import - n0rad/archlinux
+tar --numeric-owner -C "$buildfolder" -c . | docker import - n0rad/arch
 
 rm -rf "$buildfolder"
