@@ -15,10 +15,12 @@ RUN sed -i "s/post_max_size =.*/post_max_size = 1024M/g" /etc/php/php.ini
 RUN sed -i "s/open_basedir =/;open_basedir =/g" /etc/php/php.ini
 RUN sed -i "s/;extension=mysql.so/extension=mysql.so/g" /etc/php/php.ini
 
+
 #wordpress
 RUN curl -SL https://wordpress.org/latest.tar.gz | tar -xzC /srv && rm -Rf /srv/http && mv /srv/wordpress /srv/http
 
-
-ADD start.sh /usr/local/bin/start.sh
+ADD ./wordpress-start.sh /opt/wordpress-start.sh
+ADD ./wordpress.ini /etc/supervisor.d/wordpress.ini
 EXPOSE 80
-CMD ["start.sh"]
+CMD ["/usr/bin/supervisord"]
+

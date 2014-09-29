@@ -15,7 +15,7 @@ mkdir -p "$buildfolder"
 pacstrap -C "$DIR/mkimage-arch-pacman.conf" -c -G -M -d "$buildfolder" \
 	bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc \
 	grep gzip inetutils iputils iproute2 less pacman perl procps-ng psmisc sed \
-	shadow tar texinfo util-linux which supervisor
+	shadow tar texinfo util-linux which supervisor net-tools
 
 # clear packages cache
 rm -f "$buildfolder/var/cache/pacman/pkg/"*
@@ -71,6 +71,23 @@ echo -e "\e[101m###### You will need entropy for this step, generate activity pl
 arch-chroot "$buildfolder" \
 	/bin/sh -c 'pacman-key --init; \
 		pacman-key --populate archlinux'
+
+# yaourt
+arch-chroot "$buildfolder" /bin/bash -x <<'EOF'
+pacman -Sy --noconfirm base-devel yajl
+cd "$buildfolder/tmp"
+curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+tar zxvf package-query.tar.gz
+cd package-query
+makepkg -si --asroot --noconfirm
+cd ..
+curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+tar zxvf yaourt.tar.gz
+cd yaourt
+makepkg -si --asroot --noconfirm
+cd ..
+rm -rf "$buildfolder/tmp/*"
+EOF
 
 tar --numeric-owner -C "$buildfolder" -c . | docker import - n0rad/arch
 
