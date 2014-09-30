@@ -4,9 +4,10 @@ hash pacstrap &>/dev/null || {
 	echo "Could not find pacstrap. Run pacman -S arch-install-scripts"
 	exit 1
 }
-
-
 trap 'rm -rf $buildfolder; exit' ERR
+
+
+
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 buildfolder=/tmp/docker-base-archlinux-$RANDOM
