@@ -1,0 +1,81 @@
+qemu      1493  9.3 25.1 12780248 4644368 ?    Sl   Jun14 14740:41 /usr/bin/qemu-system-x86_64 -enable-kvm -name 
+ex-gif -S -M pc-1.1 -enable-kvm -m 7860 -smp 8,sockets=8,cores=1,threads=1 -uuid 45808ae2-4aa5-d027-30e1-9b0e9f3493fa 
+-no-user-config -nodefaults -chardev socket,id=charmonitor,path=/var/lib/libvirt/qemu/ex-gif.monitor,server,nowait 
+-mon chardev=charmonitor,id=monitor,mode=control -rtc base=utc -no-shutdown -kernel /var/vm/ex-gif/bzImage -append 
+root=/dev/vda console=ttyS0 -device piix3-usb-uhci,id=usb,bus=pci.0,addr=0x1.0x2 -drive 
+file=/var/vm/ex-gif/ex-gif.img,if=none,id=drive-virtio-disk0,format=raw,cache=none -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x4,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 -drive 
+file=/var/vm/ex-gif/ex-gif.swap,if=none,id=drive-virtio-disk1,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x5,drive=drive-virtio-disk1,id=virtio-disk1 -drive 
+file=/dev/mapper/smd1000,if=none,id=drive-virtio-disk2,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x6,drive=drive-virtio-disk2,id=virtio-disk2 -drive 
+file=/dev/mapper/smd1500,if=none,id=drive-virtio-disk3,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x7,drive=drive-virtio-disk3,id=virtio-disk3 -drive 
+file=/dev/mapper/md2000,if=none,id=drive-virtio-disk4,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x8,drive=drive-virtio-disk4,id=virtio-disk4 -drive 
+file=/dev/mapper/md2001,if=none,id=drive-virtio-disk5,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x9,drive=drive-virtio-disk5,id=virtio-disk5 -drive 
+file=/dev/mapper/md3001,if=none,id=drive-virtio-disk6,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0xa,drive=drive-virtio-disk6,id=virtio-disk6 -drive 
+file=/dev/mapper/md3002,if=none,id=drive-virtio-disk7,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0xb,drive=drive-virtio-disk7,id=virtio-disk7 -drive 
+file=/dev/mapper/md3003,if=none,id=drive-virtio-disk8,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0xc,drive=drive-virtio-disk8,id=virtio-disk8 -drive 
+file=/dev/mapper/md3004,if=none,id=drive-virtio-disk9,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0xd,drive=drive-virtio-disk9,id=virtio-disk9 -netdev 
+tap,fd=18,id=hostnet0,vhost=on,vhostfd=19 -device 
+virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:2a:42:04,bus=pci.0,addr=0x3 -chardev pty,id=charserial0 -device 
+isa-serial,chardev=charserial0,id=serial0 -vnc 127.0.0.1:0 -k fr -vga cirrus -device 
+virtio-balloon-pci,id=balloon0,bus=pci.0,addr=0xe
+qemu      1522 22.3  8.9 8131048 1646924 ?     Sl   Sep07 8058:18 /usr/bin/qemu-system-x86_64 -enable-kvm -name 
+dl-gif -S -M pc-1.1 -enable-kvm -m 3479 -smp 4,sockets=4,cores=1,threads=1 -uuid 2a4c546b-1b60-90d4-d79f-c41097a88eb3 
+-no-user-config -nodefaults -chardev socket,id=charmonitor,path=/var/lib/libvirt/qemu/dl-gif.monitor,server,nowait 
+-mon chardev=charmonitor,id=monitor,mode=control -rtc base=utc -no-shutdown -device 
+piix3-usb-uhci,id=usb,bus=pci.0,addr=0x1.0x2 -drive 
+file=/var/vm/dl-gif/dl-gif.img,if=none,id=drive-virtio-disk0,format=raw,cache=writeback,aio=native -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x4,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 -drive 
+file=/var/vm/dl-gif/dl-gif.swap,if=none,id=drive-virtio-disk1,format=raw,cache=none -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x5,drive=drive-virtio-disk1,id=virtio-disk1 -drive 
+file=/dev/mapper/sdy1,if=none,id=drive-virtio-disk2,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x6,drive=drive-virtio-disk2,id=virtio-disk2 -drive 
+file=/usr/src/ubuntu-12.04.3-desktop-amd64.iso,if=none,id=drive-ide0-0-0,readonly=on,format=raw -device 
+ide-cd,bus=ide.0,unit=0,drive=drive-ide0-0-0,id=ide0-0-0 -netdev tap,fd=18,id=hostnet0,vhost=on,vhostfd=22 -device 
+virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:2b:40:06,bus=pci.0,addr=0x3 -chardev pty,id=charserial0 -device 
+isa-serial,chardev=charserial0,id=serial0 -device usb-tablet,id=input0 -vnc 127.0.0.1:3 -k fr -vga cirrus -device 
+virtio-balloon-pci,id=balloon0,bus=pci.0,addr=0x7
+root      4280  0.0  0.0 1011508 5468 ?        Sl    2013  31:09 /usr/sbin/libvirtd -d
+qemu      5500  3.1 17.0 7649096 3156208 ?     Sl    2013 20985:42 /usr/bin/qemu-system-x86_64 -enable-kvm -name 
+web-gif -S -M pc-1.1 -enable-kvm -m 2978 -smp 8,sockets=8,cores=1,threads=1 -uuid 
+dd480628-80ad-1640-0e9f-1803ee231240 -no-user-config -nodefaults -chardev 
+socket,id=charmonitor,path=/var/lib/libvirt/qemu/web-gif.monitor,server,nowait -mon 
+chardev=charmonitor,id=monitor,mode=control -rtc base=utc -no-shutdown -kernel /usr/src/bzImage -append root=/dev/vda 
+console=ttyS0 -device piix3-usb-uhci,id=usb,bus=pci.0,addr=0x1.0x2 -drive 
+file=/var/vm/web-gif/web-gif.img,if=none,id=drive-virtio-disk0,format=raw,cache=none -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x4,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 -drive 
+file=/var/vm/web-gif/web-gif.swap,if=none,id=drive-virtio-disk1,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x5,drive=drive-virtio-disk1,id=virtio-disk1 -drive 
+file=/var/vm/web-gif/web-gif-data.img,if=none,id=drive-virtio-disk2,format=raw,cache=none -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x6,drive=drive-virtio-disk2,id=virtio-disk2 -netdev 
+tap,fd=18,id=hostnet0,vhost=on,vhostfd=21 -device 
+virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:2a:41:09,bus=pci.0,addr=0x3 -chardev pty,id=charserial0 -device 
+isa-serial,chardev=charserial0,id=serial0 -vnc 127.0.0.1:2 -k fr -vga cirrus -device 
+virtio-balloon-pci,id=balloon0,bus=pci.0,addr=0x7
+root      9084  0.0  0.0 108568   908 pts/4    S+   02:04   0:00 grep vir
+qemu     12977  1.4  1.2 7199488 232988 ?      Sl    2013 5718:02 /usr/bin/qemu-system-x86_64 -enable-kvm -name 
+fw-gif -S -M pc-1.1 -enable-kvm -m 2978 -smp 1,sockets=1,cores=1,threads=1 -uuid dc4aafba-c1d4-53f1-8228-51ad0b434764 
+-no-user-config -nodefaults -chardev socket,id=charmonitor,path=/var/lib/libvirt/qemu/fw-gif.monitor,server,nowait 
+-mon chardev=charmonitor,id=monitor,mode=control -rtc base=utc -no-shutdown -kernel /usr/src/bzImage -append 
+root=/dev/vda console=ttyS0 -device piix3-usb-uhci,id=usb,bus=pci.0,addr=0x1.0x2 -drive 
+file=/var/vm/fw-gif/fw-gif.img,if=none,id=drive-virtio-disk0,format=raw,cache=none -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x6,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 -drive 
+file=/var/vm/fw-gif/fw-gif.swap,if=none,id=drive-virtio-disk1,format=raw -device 
+virtio-blk-pci,scsi=off,bus=pci.0,addr=0x7,drive=drive-virtio-disk1,id=virtio-disk1 -netdev 
+tap,fd=18,id=hostnet0,vhost=on,vhostfd=20 -device 
+virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:2a:40:02,bus=pci.0,addr=0x3 -netdev 
+tap,fd=23,id=hostnet1,vhost=on,vhostfd=24 -device 
+virtio-net-pci,netdev=hostnet1,id=net1,mac=52:54:00:2a:41:02,bus=pci.0,addr=0x4 -netdev 
+tap,fd=30,id=hostnet2,vhost=on,vhostfd=31 -device 
+virtio-net-pci,netdev=hostnet2,id=net2,mac=52:54:00:2a:42:02,bus=pci.0,addr=0x5 -chardev pty,id=charserial0 -device 
+isa-serial,chardev=charserial0,id=serial0 -vnc 127.0.0.1:1 -k fr -vga cirrus -device 
+virtio-balloon-pci,id=balloon0,bus=pci.0,addr=0x8
+
