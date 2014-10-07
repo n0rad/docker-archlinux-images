@@ -1,4 +1,8 @@
 #!/bin/bash -x
+
+echo "not finished"
+exit
+
 (( EUID != 0 )) && echo 'This script must be run as root.' && exit 1
 hash pacstrap &>/dev/null || {
 	echo "Could not find pacstrap. Run pacman -S arch-install-scripts"
