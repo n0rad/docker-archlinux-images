@@ -21,6 +21,5 @@ RUN curl -SL https://wordpress.org/latest.tar.gz | tar -xzC /srv && rm -Rf /srv/
 
 ADD ./wordpress-start.sh /opt/wordpress-start.sh
 ADD ./wordpress.ini /etc/supervisor.d/wordpress.ini
-EXPOSE 80
 CMD ["/usr/bin/supervisord"]
 
