@@ -4,6 +4,12 @@ hash pacstrap &>/dev/null || {
 	echo "Could not find pacstrap. Run pacman -S arch-install-scripts"
 	exit 1
 }
+
+hash rngd &>/dev/null || {
+        echo "Could not find pacstrap. Run pacman -S rng-tools"
+        exit 1
+}
+
 trap 'rm -rf $buildfolder; exit' ERR
 
 
@@ -16,7 +22,7 @@ mkdir -p "$buildfolder"
 pacstrap -C "$DIR/mkimage-arch-pacman.conf" -c -G -M -d "$buildfolder" \
 	bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc \
 	grep gzip inetutils iputils iproute2 less pacman perl procps-ng psmisc sed \
-	shadow tar texinfo util-linux which supervisor net-tools
+	shadow tar texinfo util-linux which supervisor net-tools nano vi
 
 # clear packages cache
 rm -f "$buildfolder/var/cache/pacman/pkg/"*
@@ -68,10 +74,11 @@ arch-chroot "$buildfolder" locale-gen
 echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch' >\
 	"$buildfolder/etc/pacman.d/mirrorlist"
 
-echo -e "\e[101m###### You will need entropy for this step, generate activity please... #######\e[0;m"
+rngd -r /dev/urandom
 arch-chroot "$buildfolder" \
 	/bin/sh -c 'pacman-key --init; \
 		pacman-key --populate archlinux'
+killall -9 rngd
 
 # yaourt
 arch-chroot "$buildfolder" /bin/bash -x <<'EOF'
