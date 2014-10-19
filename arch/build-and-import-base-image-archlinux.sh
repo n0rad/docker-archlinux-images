@@ -44,6 +44,7 @@ mknod -m 666 "$buildfolder/dev"/ptmx c 5 2
 
 # link pacman log to /dev/null
 arch-chroot "$buildfolder" ln -s /dev/null /var/log/pacman.log
+echo "export TERM=vt100" > /root/.bashrc
 
 # update supervisord config
 sed -e "s,nodaemon=false,nodaemon=true ," -i "$buildfolder/etc/supervisord.conf"
