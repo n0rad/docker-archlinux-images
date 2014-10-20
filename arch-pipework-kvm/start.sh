@@ -1,4 +1,4 @@
-#/bin/sh
+#/bin/sh -x
 
 set -e
 
@@ -18,4 +18,4 @@ dd if=/dev/kvm count=0 2>/dev/null || {
   echo >&2 "(This can happen if the container is run without -privileged)"
 }
 
-/srv/vm/vm.sh
+exec "$@"
