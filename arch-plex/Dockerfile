@@ -10,5 +10,6 @@ RUN chown -R plex: /var/lib/plex
 VOLUME ["/var/lib/plex", "/Data"]
 
 WORKDIR /opt/plexmediaserver
-CMD su -s /bin/bash -c '/opt/plexmediaserver/start.sh' plex
-
+CMD su -s /bin/bash -c 'rm -rf /var/run/* &&\
+  rm -f "/var/lib/plex/Library/Application Support/Plex Media Server/plexmediaserver.pid" &&\
+  /opt/plexmediaserver/start.sh' plex
