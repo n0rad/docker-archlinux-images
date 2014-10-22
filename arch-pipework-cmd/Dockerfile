@@ -1,5 +1,6 @@
 FROM n0rad/arch-pipework
 MAINTAINER n0rad <alemaire@norad.fr>
 
-VOLUME ["/opt/run.sh"]
+WORKDIR "/opt"
+VOLUME ["/opt"]
 CMD ["/opt/run.sh"]
