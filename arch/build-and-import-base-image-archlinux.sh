@@ -98,6 +98,10 @@ cd ..
 rm -rf "$buildfolder/tmp/*"
 EOF
 
+
+arch-chroot "$buildfolder" pacman-db-upgrade
+
+
 tar --numeric-owner -C "$buildfolder" -c . | docker import - n0rad/arch
 
 rm -rf "$buildfolder"
