@@ -6,8 +6,6 @@ RUN yaourt -S --noconfirm subsonic-kang && pacman -Scc --noconfirm
 
 EXPOSE 4040
 RUN mkdir -p /Data
-RUN useradd -m -u 3456 subsonic
-RUN chown -R subsonic: /var/subsonic
 
 VOLUME ["/var/subsonic/db", "/Data"]
 

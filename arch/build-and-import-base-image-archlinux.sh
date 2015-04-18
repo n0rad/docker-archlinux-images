@@ -85,16 +85,41 @@ killall -9 rngd
 arch-chroot "$buildfolder" /bin/bash -x <<'EOF'
 pacman -Sy --noconfirm base-devel yajl
 cd "$buildfolder/tmp"
+
 curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
 tar zxvf package-query.tar.gz
 cd package-query
-makepkg -si --asroot --noconfirm
+chgrp nobody .
+chmod g+ws .
+setfacl -m u::rwx,g::rwx .
+setfacl -d --set u::rwx,g::rwx,o::- .
+sudo -u nobody makepkg --noconfirm
+pacman -U --noconfirm package-query*.tar.xz
 cd ..
+
+curl -O https://aur.archlinux.org/packages/ma/makepkg-asroot/makepkg-asroot.tar.gz
+tar zxvf makepkg-asroot.tar.gz
+cd makepkg-asroot
+chgrp nobody .
+chmod g+ws .
+setfacl -m u::rwx,g::rwx .
+setfacl -d --set u::rwx,g::rwx,o::- .
+sudo -u nobody makepkg --noconfirm
+pacman -U --noconfirm makepkg-asroot*.tar.xz
+cd ..
+
 curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
 tar zxvf yaourt.tar.gz
 cd yaourt
-makepkg -si --asroot --noconfirm
+chgrp nobody .
+chmod g+ws .
+setfacl -m u::rwx,g::rwx .
+setfacl -d --set u::rwx,g::rwx,o::- .
+sudo -u nobody makepkg --noconfirm
+pacman -U --noconfirm yaourt*.tar.xz
 cd ..
+
+
 rm -rf "$buildfolder/tmp/*"
 EOF
 
