@@ -8,7 +8,7 @@ RUN pecl config-set php_ini /etc/php/php.ini && pear config-set php_ini /etc/php
 RUN pecl channel-update pecl.php.net && echo yes | pecl -q install imagick
 
 # php config
-RUN sed -i "s/;\(extension=\(apcu\|curl\|imap\|intl\|ldap\|mcrypt\|memcache\|mysqli\|pspell\|gd\|sqlite3\|tidy\|xmlrpc\|xsl\).so\)/\1/g" /etc/php/php.ini /etc/php/conf.d/*.ini
+RUN sed -i "s/;\(extension=\(apcu\|curl\|imap\|intl\|ldap\|mcrypt\|memcache\|mysql\|mysqli\|pspell\|gd\|sqlite3\|tidy\|xmlrpc\|xsl\).so\)/\1/g" /etc/php/php.ini /etc/php/conf.d/*.ini
 RUN sed -i "s/;cgi.fix_pathinfo=.*/cgi.fix_pathinfo=0/g" /etc/php/php.ini
 RUN sed -i "s/upload_max_filesize =.*/upload_max_filesize = 1024M/g" /etc/php/php.ini
 RUN sed -i "s/post_max_size =.*/post_max_size = 1024M/g" /etc/php/php.ini
