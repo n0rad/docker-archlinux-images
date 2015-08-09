@@ -1,4 +1,7 @@
-#!/bin/bash -x
+#!/bin/bash
+set -x
+set -e
+
 (( EUID != 0 )) && echo 'This script must be run as root.' && exit 1
 hash pacstrap &>/dev/null || {
 	echo "Could not find pacstrap. Run pacman -S arch-install-scripts"
@@ -86,7 +89,7 @@ arch-chroot "$buildfolder" /bin/bash -x <<'EOF'
 pacman -Sy --noconfirm base-devel yajl
 cd "$buildfolder/tmp"
 
-curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
 tar zxvf package-query.tar.gz
 cd package-query
 chgrp nobody .
@@ -97,7 +100,7 @@ sudo -u nobody makepkg --noconfirm
 pacman -U --noconfirm package-query*.tar.xz
 cd ..
 
-curl -O https://aur.archlinux.org/packages/ma/makepkg-asroot/makepkg-asroot.tar.gz
+curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/makepkg-asroot.tar.gz
 tar zxvf makepkg-asroot.tar.gz
 cd makepkg-asroot
 chgrp nobody .
@@ -108,7 +111,7 @@ sudo -u nobody makepkg --noconfirm
 pacman -U --noconfirm makepkg-asroot*.tar.xz
 cd ..
 
-curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
 tar zxvf yaourt.tar.gz
 cd yaourt
 chgrp nobody .
