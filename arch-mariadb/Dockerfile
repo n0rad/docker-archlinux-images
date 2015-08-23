@@ -4,6 +4,7 @@ MAINTAINER n0rad <alemaire@norad.fr>
 
 RUN pacman -S --noconfirm mariadb mariadb-clients pwgen && pacman -Scc --noconfirm
 RUN rm -Rf /var/lib/mysql/*
+RUN mkdir -p /run/mysqld && chown mysql: /run/mysqld
 
 ADD ./mariadb-start.sh /mariadb-start.sh
 ADD ./mariadb.ini /etc/supervisor.d/mariadb.ini
